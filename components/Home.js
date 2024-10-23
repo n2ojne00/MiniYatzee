@@ -59,11 +59,12 @@ export default function Home({ navigation }) {
           :
 
           <>
-            <Text>Rules of the game</Text>
-            <Text multiline="true">
+          <View style={styles.rules}>
+            <Text style={{fontWeight: 'bold', fontSize: 20}}>Rules of the game</Text>
+            <Text multiline="true" style={{fontSize: 15}}>
               THE GAME: Upper section of the classic Yahtzee
               dice game. You have {NBR_OF_DICES} dices and
-              for the every dice you have {NBR_OF_THROWS}
+              for the every dice you have {NBR_OF_THROWS} 
               throws. After each throw you can keep dices in
               order to get same dice spot counts as many as
               possible. In the end of the turn you must select
@@ -71,7 +72,9 @@ export default function Home({ navigation }) {
               Game ends when all points have been selected.
               The order for selecting those is free.
             </Text>
-            <Text> Good luck, {playerName}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 15}}> Good luck, {playerName}</Text>
+
+          </View>
 
             <Pressable style={styles.continueButton}
               onPress={() => navigation.navigate('Gameboard')}>

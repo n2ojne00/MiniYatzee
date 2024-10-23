@@ -71,5 +71,25 @@ export default StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
     borderRadius: 30,
+  },
+  rules: {
+    alignItems: 'center',
+    width: '90%',
+    padding: 10,
+    borderWidth: 4,
+    borderRadius: 30,
+    borderStyle: 'dotted',
+    borderColor: 'tomato',
+    marginBottom: 5,
+  },
+  dice: {
+    borderWidth: 2,
+    borderColor: 'orange',
+  },
+  dicesRow: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    justifyContent: 'space-evenly',
+    paddingVertical: 5,
   }
 });

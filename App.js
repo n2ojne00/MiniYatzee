@@ -11,7 +11,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-      sceneContainerStyle={{backgroundColor: 'transparent'}}
+        sceneContainerStyle={{ backgroundColor: 'transparent' }}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -21,14 +21,14 @@ export default function App() {
                 ? 'home-circle'
                 : 'home-circle-outline';
             } else if (route.name === 'Gameboard') {
-              iconName = focused 
-              ? 'dice-multiple' 
-              : 'dice-multiple-outline';
+              iconName = focused
+                ? 'dice-multiple'
+                : 'dice-multiple-outline';
             }
-             else if (route.name === 'Scoreboard') {
-              iconName = focused 
-              ? 'view-list' 
-              : 'view-list-outline';
+            else if (route.name === 'Scoreboard') {
+              iconName = focused
+                ? 'view-list'
+                : 'view-list-outline';
             }
 
             // You can return any component that you like here!
@@ -38,7 +38,8 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Home" component={Home}
+          options={{ tabBarStyle: { display: "none" } }} />
         <Tab.Screen name="Gameboard" component={Gameboard} />
         <Tab.Screen name="Scoreboard" component={Scoreboard} />
       </Tab.Navigator>

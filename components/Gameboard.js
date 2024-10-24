@@ -10,10 +10,11 @@ import {
   MIN_SPOT,
   MAX_SPOT,
   BONUS_POINTS_LIMIT,
-  BONUS_POINTS, } from '../constants/Game'
+  BONUS_POINTS,
+} from '../constants/Game'
 import styles from '../styles/styles';
- 
-  let board = [];
+
+let board = [];
 
 export default function Gameboard() {
 
@@ -23,16 +24,16 @@ export default function Gameboard() {
 
   // If dices are selected or not
   const [selectedDices, setSelectedDices] =
-  useState(new Array(NBR_OF_DICES).fill(false));
+    useState(new Array(NBR_OF_DICES).fill(false));
   // Dice spots
   const [diceSpots, setDicesSpots] =
-  useState(new Array(NBR_OF_DICES).fill(0));
+    useState(new Array(NBR_OF_DICES).fill(0));
   // If dice points are selected or not
   const [selectedDicePoints, setSelectedDicePoints] =
-  useState(new Array(MAX_SPOT).fill(false));
+    useState(new Array(MAX_SPOT).fill(false));
   // Total points for different spots
-  const [diceTotalPoints, setdiceTotalPoints] =
-  useState(new Array(MAX_SPOT).fill(0));
+  const [dicePointsTotal, setDicePointsTotal] =
+    useState(new Array(MAX_SPOT).fill(0));
 
   const [playerName, setPlayerName] = useState('');
 
@@ -40,60 +41,131 @@ export default function Gameboard() {
   //i is dice
   for (let i = 0; i < NBR_OF_DICES; i++) {
     row.push(
-      <View style={styles.dice}>
-      <Pressable 
+      <View>
+        <Pressable
           key={"row" + i}
           onPress={() => selectDice(i)}
+        >
+          <MaterialCommunityIcons
+            name={board[i]}
+            key={"row" + i}
+            size={70}
+            color={getDiceColor(i)}
           >
-        <MaterialCommunityIcons
-          name={board[i]}
-          key={"row" + i}
-          size={50}
-          color={getDiceColor(i)}
-          >
-        </MaterialCommunityIcons>
-      </Pressable>
+          </MaterialCommunityIcons>
+        </Pressable>
       </View>
     );
   }
 
+  const pointsRow = [];
+  for (let spot = 0; spot < MAX_SPOT; spot++) {
+    pointsRow.push(
+      <Text key={"pointsRow" + spot}>{getSpotTotal(spot)}</Text>
+    );
+  }
+
+  const pointsToSelectRow = [];
+  for (let diceButton = 0; diceButton < MAX_SPOT; diceButton++) {
+    pointsToSelectRow.push(
+      <Pressable key={"buttonsRow" + diceButton}
+        onPress={() => selectDicePoints(diceButton)}
+      >
+
+        <MaterialCommunityIcons
+          key={"buttonsRow" + diceButton}
+          name={"numeric-" + (diceButton + 1) + "-box"}
+          size={36}
+          color={getDicePointsColor(diceButton)}>
+
+        </MaterialCommunityIcons>
+      </Pressable>
+    );
+  }
+
+  //which dices are selected in array
   const selectDice = (k) => {
     let dices = [...selectedDices];
     dices[k] = selectedDices[k] ? false : true;
     setSelectedDices(dices);
-    console.log(dices);
   }
- 
 
+  //color for selected and unselected dices
   function getDiceColor(k) {
-    return selectedDices[k] ? "purple" : "pink"
+    return selectedDices[k] ? "brown" : "orange"
+  }
+
+  function getDicePointsColor(k) {
+    return selectedDicePoints[k] ? "brown" : "orange"
+  }
+
+  const selectDicePoints = (k) => {
+    let selectedPoints = [...selectedDicePoints];
+    let points = [...dicePointsTotal];
+    selectedPoints[k] = true;
+    let nbrOfDices =
+      diceSpots.reduce(
+        (total, x) => (x === (k + 1) ? total + 1 : total), 0);
+    points[k] = nbrOfDices * (k + 1);
+    setDicePointsTotal(points);
+    setSelectedDicePoints(selectedPoints);
+    return points[k];
+    
   }
 
   const throwDices = () => {
+    let spots = [...diceSpots];
     for (let k = 0; k < NBR_OF_DICES; k++) {
       if (!selectedDices[k]) {
         let randomNumber = Math.floor(Math.random() * MAX_SPOT + 1);
+        spots[k] = randomNumber;
         board[k] = 'dice-' + randomNumber;
       }
     }
-    setNbrOfThrowsLeft(nbrOfThrowsLeft-1);
+    setDicesSpots(spots);
+    setNbrOfThrowsLeft(nbrOfThrowsLeft - 1);
+  }
+
+  function getSpotTotal(k) {
+    return dicePointsTotal[k];
   }
 
   return (
     <>
       <Header />
-      <View style={styles.dicesRow}>
-       {row}
-       
+      <View style={styles.container}>
+
+        {
+          //DICES
+        }
+        <View style={styles.dicesRow}>
+          {row}
+        </View>
+
+        <Text style={styles.txtMed}>THROWS LEFT {nbrOfThrowsLeft}</Text>
+        <Text style={styles.txtMin}>{status}</Text>
+        <Pressable
+          style={styles.continueButton}
+          onPress={() => throwDices()}>
+          <MaterialCommunityIcons name="play" size={24} />
+        </Pressable>
+
+        {
+        //POINTS
+        }
+        <View style={styles.dicesRow}>
+          {pointsRow}
+        </View>
+
+        <View style={styles.dicesRow}>
+          {pointsToSelectRow}
+        </View>
+
+
       </View>
-      <Text>THROWS LEFT {nbrOfThrowsLeft}</Text>
-      <Text>{status}</Text>
-      <Pressable
-      style={styles.continueButton}
-      onPress={() => throwDices()}>
-        <Text>THROW</Text>
-      </Pressable>
+
       <Footer />
+
     </>
   )
 }

@@ -31,7 +31,7 @@ export default function Home({ navigation }) {
   return (
     <>
       <Header />
-      <View>
+      <View style={styles.container}>
         <MaterialCommunityIcons
           name="information"
           size={90}
@@ -60,8 +60,8 @@ export default function Home({ navigation }) {
 
           <>
           <View style={styles.rules}>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Rules of the game</Text>
-            <Text multiline="true" style={{fontSize: 15}}>
+            <Text style={styles.txtMed}>Rules of the game</Text>
+            <Text multiline="true" style={styles.txtMin}>
               THE GAME: Upper section of the classic Yahtzee
               dice game. You have {NBR_OF_DICES} dices and
               for the every dice you have {NBR_OF_THROWS} 
@@ -72,7 +72,7 @@ export default function Home({ navigation }) {
               Game ends when all points have been selected.
               The order for selecting those is free.
             </Text>
-            <Text style={{fontWeight: 'bold', fontSize: 15}}> Good luck, {playerName}</Text>
+            <Text style={styles.txtMin && {fontWeight: 'bold'}}> Good luck, {playerName}</Text>
 
           </View>
 

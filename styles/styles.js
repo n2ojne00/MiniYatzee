@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff', 
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   header: {
     marginTop: 30,
@@ -82,14 +84,17 @@ export default StyleSheet.create({
     borderColor: 'tomato',
     marginBottom: 5,
   },
-  dice: {
-    borderWidth: 2,
-    borderColor: 'orange',
-  },
   dicesRow: {
     flexDirection: 'row',
-    borderWidth: 1,
     justifyContent: 'space-evenly',
-    paddingVertical: 5,
+    paddingVertical: 8,
+    width: '90%'
+  },
+  txtMin: {
+    fontSize: 16,
+  },
+  txtMed: {
+    fontWeight: 'bold',
+    fontSize: 20,
   }
 });

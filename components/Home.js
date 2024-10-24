@@ -34,24 +34,24 @@ export default function Home({ navigation }) {
       <View style={styles.container}>
         <MaterialCommunityIcons
           name="information"
-          size={90}
+          size={70}
           color="tomato" />
 
         {!hasPlayerName ?
           //rules will show up after hasPlayerName been set to true
           <>
 
-            <Text>For scoreboard enter your name..</Text>
+            <Text style={styles.txtMed}>For scoreboard enter your name..</Text>
             <TextInput
               onChangeText={setPlayerName}
               autoFocus={true}
-              style={{ borderWidth: 1, width: '50%' }}
+              style={styles.txtInput}
             />
 
             <Pressable
               onPress={() => handlePlayerName(playerName)}
               style={styles.continueButton}>
-              <Text>OK</Text>
+              <Text>CONTINUE</Text>
             </Pressable>
           </>
 
@@ -77,7 +77,7 @@ export default function Home({ navigation }) {
           </View>
 
             <Pressable style={styles.continueButton}
-              onPress={() => navigation.navigate('Gameboard')}>
+              onPress={() => navigation.navigate('Gameboard', {player: playerName})}>
               <Text>PLAY</Text>
             </Pressable>
 

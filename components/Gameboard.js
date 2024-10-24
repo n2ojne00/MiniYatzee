@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native'
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -16,7 +16,7 @@ import styles from '../styles/styles';
 
 let board = [];
 
-export default function Gameboard() {
+export default function Gameboard({navigation, route}) {
 
   const [nbrOfThrowsLeft, setNbrOfThrowsLeft] = useState(NBR_OF_THROWS);
   const [status, setStatus] = useState('Throw dices');
@@ -37,6 +37,13 @@ export default function Gameboard() {
 
   const [playerName, setPlayerName] = useState('');
 
+  useEffect(() => {
+    if (playerName === '' && route.params?.player) {
+      setPlayerName(route.params.player);
+    }
+  }, [])
+
+ 
   const row = [];
   //i is dice
   for (let i = 0; i < NBR_OF_DICES; i++) {
@@ -61,7 +68,11 @@ export default function Gameboard() {
   const pointsRow = [];
   for (let spot = 0; spot < MAX_SPOT; spot++) {
     pointsRow.push(
-      <Text key={"pointsRow" + spot}>{getSpotTotal(spot)}</Text>
+      <Text 
+      key={"pointsRow" + spot} 
+      style={styles.txtMed}>
+        {getSpotTotal(spot)}
+      </Text>
     );
   }
 
@@ -100,17 +111,29 @@ export default function Gameboard() {
   }
 
   const selectDicePoints = (k) => {
-    let selectedPoints = [...selectedDicePoints];
-    let points = [...dicePointsTotal];
-    selectedPoints[k] = true;
-    let nbrOfDices =
-      diceSpots.reduce(
-        (total, x) => (x === (k + 1) ? total + 1 : total), 0);
-    points[k] = nbrOfDices * (k + 1);
-    setDicePointsTotal(points);
-    setSelectedDicePoints(selectedPoints);
-    return points[k];
-    
+    if (nbrOfThrowsLeft === 0) {
+      let selected = [...selectedDices];
+      let selectedPoints = [...selectedDicePoints];
+      let points = [...dicePointsTotal];
+      if (!selectedPoints[k]) {
+        selectedPoints[k] = true;
+        let nbrOfDices =
+          diceSpots.reduce(
+            (total, x) => (x === (k + 1) ? total + 1 : total), 0);
+        points[k] = nbrOfDices * (k + 1);
+        setDicePointsTotal(points);
+        setSelectedDicePoints(selectedPoints);
+        setNbrOfThrowsLeft(NBR_OF_THROWS);
+        return points[k];
+      }
+      else {
+        setStatus("You already selected points for " + (k + 1));
+      }
+    }
+    else {
+      setStatus("Throw " + NBR_OF_THROWS + " times before setting points")
+    }
+
   }
 
   const throwDices = () => {
@@ -145,13 +168,17 @@ export default function Gameboard() {
         <Text style={styles.txtMed}>THROWS LEFT {nbrOfThrowsLeft}</Text>
         <Text style={styles.txtMin}>{status}</Text>
         <Pressable
-          style={styles.continueButton}
-          onPress={() => throwDices()}>
+          style={[
+            styles.continueButton, 
+            nbrOfThrowsLeft === 0 && styles.disabledButton  // Apply disabled style if no throws left
+          ]}
+          onPress={() => throwDices()}
+          disabled={nbrOfThrowsLeft === 0}>
           <MaterialCommunityIcons name="play" size={24} />
         </Pressable>
 
         {
-        //POINTS
+          //POINTS
         }
         <View style={styles.dicesRow}>
           {pointsRow}
@@ -160,6 +187,8 @@ export default function Gameboard() {
         <View style={styles.dicesRow}>
           {pointsToSelectRow}
         </View>
+
+        <Text style={styles.txtMed}>Player name: {playerName}</Text>
 
 
       </View>

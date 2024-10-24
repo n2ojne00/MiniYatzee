@@ -74,6 +74,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderRadius: 30,
   },
+  disabledButton: {
+    opacity: 0.5, 
+  },
   rules: {
     alignItems: 'center',
     width: '90%',
@@ -92,9 +95,15 @@ export default StyleSheet.create({
   },
   txtMin: {
     fontSize: 16,
+    marginBottom: 3,
   },
   txtMed: {
     fontWeight: 'bold',
     fontSize: 20,
-  }
+  },
+  txtInput: { 
+    borderWidth: 1, 
+    width: '50%',
+    marginBottom: 10,
+  },
 });

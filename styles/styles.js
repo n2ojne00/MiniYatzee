@@ -87,17 +87,10 @@ export default StyleSheet.create({
   },
   dicesRow: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingVertical: 8,
+    justifyContent: 'space-around',
+    paddingVertical: 5,
     width: '90%'
   },
-  pointsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingVertical: 8,
-    width: '90%'
-  },
-
   txtMin: {
     fontSize: 16,
     marginBottom: 3,

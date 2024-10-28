@@ -14,6 +14,7 @@ import {
 } from '../constants/Game';
 import styles from '../styles/styles';
 
+
 let board = [];
 
 export default function Gameboard({ navigation, route }) {
@@ -21,20 +22,20 @@ export default function Gameboard({ navigation, route }) {
   const [status, setStatus] = useState('');
   const [gameEndStatus, setGameEndStatus] = useState(false);
   const [FullPointsTotal, setFullPointsTotal] = useState(0);
-  const [diceFaces, setDiceFaces] = useState(new Array(NBR_OF_DICES).fill(1));
+
 
   // If dices are selected or not
-  const [selectedDices, setSelectedDices] = 
-  useState(new Array(NBR_OF_DICES).fill(false));
+  const [selectedDices, setSelectedDices] =
+    useState(new Array(NBR_OF_DICES).fill(false));
   // Dice spots
-  const [diceSpots, setDicesSpots] = 
-  useState(new Array(NBR_OF_DICES).fill(0));
+  const [diceSpots, setDicesSpots] =
+    useState(new Array(NBR_OF_DICES).fill(0));
   // If dice points are selected or not
-  const [selectedDicePoints, setSelectedDicePoints] = 
-  useState(new Array(MAX_SPOT).fill(false));
+  const [selectedDicePoints, setSelectedDicePoints] =
+    useState(new Array(MAX_SPOT).fill(false));
   // Total points for different spots
-  const [dicePointsTotal, setDicePointsTotal] = 
-  useState(new Array(MAX_SPOT).fill(0));
+  const [dicePointsTotal, setDicePointsTotal] =
+    useState(new Array(MAX_SPOT).fill(0));
 
   const [playerName, setPlayerName] = useState('');
 
@@ -215,7 +216,6 @@ export default function Gameboard({ navigation, route }) {
             <Text style={styles.txtMed}>Game Over!</Text>
             <Pressable style={styles.continueButton} onPress={resetGame}>
               <Text>AGAIN <MaterialCommunityIcons name='restart' size={20} /></Text>
-
             </Pressable>
           </>
         )}

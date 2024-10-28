@@ -14,7 +14,7 @@ export default function App() {
       <Tab.Navigator
         sceneContainerStyle={{ backgroundColor: 'transparent' }}
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ focused, color}) => {
             let iconName;
 
             if (route.name === 'Home') {
@@ -33,7 +33,7 @@ export default function App() {
             }
 
             // You can return any component that you like here!
-            return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+            return <MaterialCommunityIcons name={iconName} size={40} color={color} />;
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',

@@ -21,6 +21,8 @@ export default function Gameboard({navigation, route}) {
   const [nbrOfThrowsLeft, setNbrOfThrowsLeft] = useState(NBR_OF_THROWS);
   const [status, setStatus] = useState('Throw dices');
   const [gameEndStatus, setGameEndStatus] = useState(false);
+  const [FullPointsTotal, setFullPointsTotal] = useState(0);
+  
 
   // If dices are selected or not
   const [selectedDices, setSelectedDices] =
@@ -153,6 +155,16 @@ export default function Gameboard({navigation, route}) {
     return dicePointsTotal[k];
   }
 
+    // calculate the TOTAL POINTS
+    function getTotalDicePoints() {
+      return dicePointsTotal.reduce((sum, current) => sum + current, 0);
+    }
+    useEffect(() => {
+      const total = getTotalDicePoints();
+      setFullPointsTotal(total);
+    }, [dicePointsTotal]);
+
+  
   return (
     <>
       <Header />
@@ -180,6 +192,10 @@ export default function Gameboard({navigation, route}) {
         {
           //POINTS
         }
+        <View style={styles.dicesRow}>
+          <Text style={styles.txtMin}>YOUR TOTAL POINTS: {FullPointsTotal}</Text>
+        </View>
+
         <View style={styles.dicesRow}>
           {pointsRow}
         </View>

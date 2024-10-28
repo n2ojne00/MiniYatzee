@@ -8,8 +8,6 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   header: {
-    marginTop: 30,
-    marginBottom: 15,
     backgroundColor: 'tomato',
     flexDirection: 'row',
   },
@@ -22,7 +20,7 @@ export default StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     flex: 1,
-    fontSize: 23,
+    fontSize: 30,
     textAlign: 'center',
     margin: 10,
   },
@@ -30,7 +28,7 @@ export default StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     flex: 1,
-    fontSize: 15,
+    fontSize: 20,
     textAlign: 'center',
     margin: 10,
   },
@@ -93,6 +91,13 @@ export default StyleSheet.create({
     paddingVertical: 8,
     width: '90%'
   },
+  pointsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingVertical: 8,
+    width: '90%'
+  },
+
   txtMin: {
     fontSize: 16,
     marginBottom: 3,
